@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1641759061 source:c:\users\modify\downloads\all\algorytmy\algorithms_lab_2\algorithms_lab_2_magda_szafranska\main.cpp
+	<tchar.h>
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+	<random>
+
