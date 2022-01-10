@@ -205,7 +205,6 @@ int main(int argc, char* argv[])
 	printf("\tCzas [s] = %G\n", (T2 - T1) / (float)F);
 	fileInsertion << (T2 - T1) / (float)F << endl;
 
-
 	printf("Sortowanie przez scalanie (ang. merge sort)...", N);
 	RandomTab(N, T);
 	QueryPerformanceCounter((LARGE_INTEGER*)&T1);
