@@ -1,4 +1,4 @@
-// Autor: Magda Szafrañska, nr indeksu AHNS: 18345
+// Autor: Magda Szafranska, nr indeksu AHNS: 18345
 // Informatyka NST, rok 2, sem. 3
 // Algorytmy, laboratoria nr 2
 
@@ -10,6 +10,7 @@ using namespace std;
 #include <stdlib.h>
 #include <windows.h>
 #include <random>
+#include <fstream>
 
 //---------------------------------------------------------------------------
 int MIN(int A, int B)
@@ -159,10 +160,23 @@ int main(int argc, char* argv[])
 		return 0;
 	}
 
+	// writing to the text file - a separate file to each of an algorithm
+	fstream fileN1, fileN2, fileBubble, fileSelection, fileInsertion, fileMerge, fileQuick, fileCounting;
+	fileN1.open("N1.txt", ios::out | ios::app);
+	fileN2.open("N2.txt", ios::out | ios::app);
+	fileBubble.open("BubbleSort.txt", ios::out | ios::app);
+	fileSelection.open("SelectionSort.txt", ios::out | ios::app);
+	fileInsertion.open("InsertionSort.txt", ios::out | ios::app);
+	fileMerge.open("MergeSort.txt", ios::out | ios::app);
+	fileQuick.open("QuickSort.txt", ios::out | ios::app);
+	fileCounting.open("CountingSort.txt", ios::out | ios::app);
+
 	int* T = new int[N];
 
 	RandomTab(N, T);
 	printf("T = "); WriteTab(MIN(N, 30), T);
+	fileN1 << N << endl;
+	fileN2 << N << endl;
 
 	__int64 T1, T2, F;
 	QueryPerformanceFrequency((LARGE_INTEGER*)&F);
@@ -173,6 +187,7 @@ int main(int argc, char* argv[])
 	BubbleSort(N, T);
 	QueryPerformanceCounter((LARGE_INTEGER*)&T2);
 	printf("\t\tCzas [s] = %G\n", (T2 - T1) / (float)F);
+	fileBubble << (T2 - T1) / (float)F << endl;
 
 	printf("Sortowanie przez wybór (ang. selection sort)...", N);
 	RandomTab(N, T);
@@ -180,6 +195,7 @@ int main(int argc, char* argv[])
 	SelectionSort(N, T);
 	QueryPerformanceCounter((LARGE_INTEGER*)&T2);
 	printf("\t\tCzas [s] = %G\n", (T2 - T1) / (float)F);
+	fileSelection << (T2 - T1) / (float)F << endl;
 
 	printf("Sortowanie przez wstawianie (ang.insertion sort)...", N);
 	RandomTab(N, T);
@@ -187,6 +203,8 @@ int main(int argc, char* argv[])
 	InsertionSort(N, T);
 	QueryPerformanceCounter((LARGE_INTEGER*)&T2);
 	printf("\tCzas [s] = %G\n", (T2 - T1) / (float)F);
+	fileInsertion << (T2 - T1) / (float)F << endl;
+
 
 	printf("Sortowanie przez scalanie (ang. merge sort)...", N);
 	RandomTab(N, T);
@@ -194,6 +212,7 @@ int main(int argc, char* argv[])
 	MergeSort(N, T);
 	QueryPerformanceCounter((LARGE_INTEGER*)&T2);
 	printf("\t\tCzas [s] = %G\n", (T2 - T1) / (float)F);
+	fileMerge << (T2 - T1) / (float)F << endl;
 
 	printf("Sortowanie szybkie (ang. quick sort)...", N);
 	RandomTab(N, T);
@@ -201,6 +220,7 @@ int main(int argc, char* argv[])
 	QuickSort(N, T);
 	QueryPerformanceCounter((LARGE_INTEGER*)&T2);
 	printf("\t\t\tCzas [s] = %G\n", (T2 - T1) / (float)F);
+	fileQuick << (T2 - T1) / (float)F << endl;
 
 	printf("Sortowanie przez zliczanie (ang. counting sort)...", N);
 	RandomTab(N, T);
@@ -208,8 +228,18 @@ int main(int argc, char* argv[])
 	CountingSort(N, T);
 	QueryPerformanceCounter((LARGE_INTEGER*)&T2);
 	printf("\tCzas [s] = %G\n", (T2 - T1) / (float)F);
+	fileCounting << (T2 - T1) / (float)F << endl;
 
 	printf("T = "); WriteTab(MIN(N, 30), T);
+
+    fileN1.close();
+    fileN2.close();
+    fileBubble.close();
+    fileSelection.close();
+    fileInsertion.close();
+    fileMerge.close();
+    fileQuick.close();
+    fileCounting.close();
 
 	delete[] T;
 	return 0;
